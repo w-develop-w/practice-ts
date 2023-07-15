@@ -1,11 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { ServerResponse, IUser } from '../../models/models'
+import { ServerResponse, IUser, IRepo } from '../../models/models'
 
 export const githubApi = createApi({
     reducerPath: 'github/api',
     baseQuery: fetchBaseQuery({
         baseUrl: 'https://api.github.com/'
     }),
+    refetchOnFocus: true,
     endpoints: build => ({
         // any - the type of data we receive
         // string - the type of parametr which we pass for request
@@ -18,8 +19,13 @@ export const githubApi = createApi({
                 }
             }), 
             transformResponse: (response: ServerResponse<IUser>) => response.items
+        }), 
+        getUserRepos: build.query<IRepo[], string>({
+            query: (username: string) => ({
+                url: `users/${username}/repos`
+            })
         })
     }) 
 })
-
-export const {useSearchUsersQuery} = githubApi
+// prefix Lazy talk about that we can to do request when we will want 
+export const {useSearchUsersQuery, useLazyGetUserReposQuery} = githubApi
