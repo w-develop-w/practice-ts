@@ -1,9 +1,19 @@
-import React from 'react';
+import React from "react"
+import { Routes, Route } from "react-router-dom"
+import { HomePage } from "./pages/HomePage"
+import { FavoritesPage } from "./pages/FavoritesPage"
+import { Navigation } from "./components/Navigation"
 
 function App() {
-  return (
-    <h1 className="flex font-bold">Hello React</h1>
-  );
+    return (
+        <>
+            <Navigation/>
+            <Routes>
+                <Route path="/" element={<HomePage />}></Route>
+                <Route path="/favourites" element={<FavoritesPage />}></Route>
+            </Routes>
+        </>
+    )
 }
 
-export default App;
+export default App
