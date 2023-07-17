@@ -1,5 +1,19 @@
-export function FavoritesPage () {
+import { useAppSelector } from "../hooks/redux"
+
+export function FavoritesPage() {
+    const { favourites } = useAppSelector((state) => state.github)
+
+    if (favourites.length === 0) return <p className="text-center">No items.</p>
+
     return (
-        <div>fav</div>
+        <div className="flex justify-center pt-10 mx-auto h-screen w-screen">
+            <ul className="list-none">
+                {favourites.map((f) => (
+                    <li key={f}>
+                        <a href={f} target="__blank">{f}</a>
+                    </li>
+                ))}
+            </ul>
+        </div>
     )
 }
